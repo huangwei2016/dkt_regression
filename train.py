@@ -7,8 +7,8 @@ import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 def run():
-    aid_int_map_activity, aid_int_map_kp = generate_dict("/workspace/data/child_data_small_new.csv")
-    seqs_by_student, num_activities, num_kp = read_file("/workspace/data/child_data_small_new.csv", aid_int_map_activity, aid_int_map_kp)
+    aid_int_map_activity, aid_int_map_kp = generate_dict("/riseml/workspace/data/child_data_small_new.csv")
+    seqs_by_student, num_activities, num_kp = read_file("/riseml/workspace/data/child_data_small_new.csv", aid_int_map_activity, aid_int_map_kp)
     # random_key('test_key_audio.txt', seqs_by_student)
     batch_size = 24
     max_seq_len = 201
@@ -22,7 +22,7 @@ def run():
               "max_seq_len": max_seq_len - 1,
               "learning_rate": 1e-3}
 
-    train_seqs, _ = split_test_dataset('/workspace/data/test_key_audio.txt', seqs_by_student)
+    train_seqs, _ = split_test_dataset('/riseml/workspace/data/test_key_audio.txt', seqs_by_student)
 
     data, seq_len = format_data(train_seqs, max_seq_len)
     x_train, y_train, x_validate, y_validate, = split_validate_dataset(data,seq_len)
@@ -81,7 +81,7 @@ def run():
             print float(loss_total / loss_count)
             if loss_min > loss_total:
                 loss_min = loss_total
-                model.save_varibles(sess, filepath="{0}/model_weight_{1}.model".format('/workspace/data//model/', epoch))
+                model.save_varibles(sess, filepath="{0}/model_weight_{1}.model".format('/riseml/workspace/data//model/', epoch))
 
 if __name__ == "__main__":
     run()

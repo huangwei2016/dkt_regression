@@ -7,8 +7,8 @@ import os
 
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 def run():
-    aid_int_map_activity, aid_int_map_kp = generate_dict("/workspace/data/child_data_small_new.csv")
-    seqs_by_student, num_activities, num_kp = read_file("/workspace/data/child_data_small_new.csv", aid_int_map_activity, aid_int_map_kp)
+    aid_int_map_activity, aid_int_map_kp = generate_dict("/riseml/workspace/data/child_data_small_new.csv")
+    seqs_by_student, num_activities, num_kp = read_file("/riseml/workspace/data/child_data_small_new.csv", aid_int_map_activity, aid_int_map_kp)
 
     batch_size = 24
     max_seq_len = 201
@@ -24,7 +24,7 @@ def run():
 
     # random_key('test_key.txt', seqs_by_student)
 
-    _, test_seqs = split_test_dataset('/workspace/data/test_key_audio.txt', seqs_by_student)
+    _, test_seqs = split_test_dataset('/riseml/workspace/data/test_key_audio.txt', seqs_by_student)
     test_data, test_seq_len = format_data(test_seqs, max_seq_len)
 
     y_test = test_data[:, :, 2]
@@ -43,7 +43,7 @@ def run():
     model = TensorFlowDKT(config)
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
-        model.load_varibles(sess, filepath="{0}/model_weight_{1}.model".format('/workspace/data/model', 5))
+        model.load_varibles(sess, filepath="{0}/model_weight_{1}.model".format('/riseml/workspace/data/model', 5))
         for start, end in zip(range(0, len(x_test_activities), batch_size), range(batch_size, len(x_test_activities) + batch_size, batch_size)):
             input_feed = {model.input_activity: x_test_activities[start:end],
                           model.input_kp: x_test_kp[start:end],
@@ -56,7 +56,7 @@ def run():
             for num in range(len(y_pred[0])):
                 plt.plot(range(batch_seq_len[num]), y_pred[0][num][:batch_seq_len[num]], c='red')
                 plt.plot(range(batch_seq_len[num]), batch_y_test[num][:batch_seq_len[num]], c='blue')
-                plt.savefig("/workspace/data/result_test/"+str(start+num)+".png")
+                plt.savefig("/riseml/workspace/data/result_test/"+str(start+num)+".png")
                 plt.close()
 
 
