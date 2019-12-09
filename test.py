@@ -4,6 +4,7 @@ from model import *
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
+
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 def run():
     aid_int_map_activity, aid_int_map_kp = generate_dict("/workspace/data/child_data_small_new.csv")

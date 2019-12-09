@@ -5,6 +5,7 @@ import tensorflow as tf
 import sys
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 def run():
     aid_int_map_activity, aid_int_map_kp = generate_dict("/workspace/data/child_data_small_new.csv")
     seqs_by_student, num_activities, num_kp = read_file("/workspace/data/child_data_small_new.csv", aid_int_map_activity, aid_int_map_kp)

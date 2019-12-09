@@ -1,22 +1,22 @@
-import csv
-import demjson
+# import csv
+# import demjson
 import numpy as np
 import random
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-def read_sql_file(dataset_path):
-    with open(dataset_path, 'rb') as csv_file:
-        with open('child_data.csv', 'w') as data_file:
-            writer = csv.writer(data_file)
-            writer.writerow(['child_id', 'activity_id', 'score'])
-            spam_reader = csv.DictReader(csv_file)
-            for row in spam_reader:
-                child_id = demjson.decode(row['\xef\xbb\xbf_col4'])['childId']
-                score = demjson.decode(row['\xef\xbb\xbf_col4'])['scoreProficiencyEvent']['entityScores'][0]['score']
-                activity_id = demjson.decode(row['\xef\xbb\xbf_col4'])['scoreProficiencyEvent']['activityIds'][0]
-                writer.writerow([child_id, activity_id, score])
+# def read_sql_file(dataset_path):
+#     with open(dataset_path, 'rb') as csv_file:
+#         with open('child_data.csv', 'w') as data_file:
+#             writer = csv.writer(data_file)
+#             writer.writerow(['child_id', 'activity_id', 'score'])
+#             spam_reader = csv.DictReader(csv_file)
+#             for row in spam_reader:
+#                 child_id = demjson.decode(row['\xef\xbb\xbf_col4'])['childId']
+#                 score = demjson.decode(row['\xef\xbb\xbf_col4'])['scoreProficiencyEvent']['entityScores'][0]['score']
+#                 activity_id = demjson.decode(row['\xef\xbb\xbf_col4'])['scoreProficiencyEvent']['activityIds'][0]
+#                 writer.writerow([child_id, activity_id, score])
 
 def generate_dict(dataset_path):
     data_df = pd.read_csv(dataset_path, header=None, names=["child_id", "activity_id", "kp_label", "score"], low_memory=False)
