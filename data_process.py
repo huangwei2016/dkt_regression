@@ -1,5 +1,3 @@
-# import csv
-# import demjson
 import numpy as np
 import random
 import pandas as pd
@@ -62,8 +60,11 @@ def split_test_dataset(key_file, seqs_by_student):
     with open(key_file, 'r') as f:
         for key in f.readlines():
             test_keys = key.split(',')
+    print len(test_keys)
     test_seqs = [seqs_by_student[k] for k in seqs_by_student if k in test_keys]
     train_seqs = [seqs_by_student[k] for k in seqs_by_student if k not in test_keys]
+    print len(test_seqs)
+    print len(train_seqs)
     return train_seqs, test_seqs
 
 def split_validate_dataset(data, seq_len):

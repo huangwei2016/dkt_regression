@@ -30,6 +30,7 @@ class TensorFlowDKT(object):
         embedding_activity_inputs = tf.nn.embedding_lookup(embedding_activity, self.input_activity)
         embedding_kp_inputs = tf.nn.embedding_lookup(embedding_kp, self.input_kp)
         embedding_inputs = tf.concat([embedding_activity_inputs, embedding_kp_inputs], -1)
+
         # create rnn cell
         hidden_layers = []
         for idx, hidden_size in enumerate(hidden_neurons):
